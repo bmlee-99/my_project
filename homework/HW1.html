@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>빈츠ㅣ 파는곳</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <style>
+
+        .total {
+            width: 650px;
+            margin: 10px auto;
+            padding: 5px;
+        }
+
+        .total2 {
+            margin: 50px
+        }
+
+    </style>
+
+    <script>
+        function order() {
+            alert('주문이 완료되었습니다.');
+        }
+
+    </script>
+</head>
+<body>
+<div class="total">
+    <div class="card mb-3">
+        <img class="card-img-top" src="https://image.homeplus.co.kr/UserFiles/Pressimages/72/800/108642072_0.jpg"
+             alt="Card image cap">
+        <div class="card-body">
+            <b><h4 class="card-title">빈츠</h4></b>
+            <p style="color: darkgoldenrod">가격: 3800 원/ 개</p>
+            <p class="card-text">초콜릿과 과자가 반반으로 합쳐져 있으며, 초콜릿면에는 유럽풍 문양이 그려져있다. 주로 산업혁명시기의 고급스러운 유럽의 모습을 담은 그림이 그려져 있으며,
+                종류로는 바이올린, 하프를 비롯한 서양식 악기, 범선, 산업혁명 시기의 자동차, 귀부인, 승마, 카메오, 가문의 문양 등이 있다.</p>
+
+            <b><h4 class="card-title">주문하기</h4></b>
+        </div>
+
+        <div class="total2">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">주문자 성함: </span>
+                </div>
+                <input type="text" class="form-control" aria-label="Default"
+                       aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div class="input-group mb-3">
+                <select class="custom-select" id="inputGroupSelect02">
+                    <option selected>개당</option>
+                    <option value="1">1개</option>
+                    <option value="2">2개</option>
+                    <option value="3">3개</option>
+                    <option value="3">4개</option>
+                    <option value="3">5개</option>
+                </select>
+                <div class="input-group-append">
+                    <label class="input-group-text" for="inputGroupSelect02">수량</label>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">주소: </span>
+                </div>
+                <input type="text" class="form-control" aria-label="Default"
+                       aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">전화번호: </span>
+                </div>
+                <input type="text" class="form-control" aria-label="Default"
+                       aria-describedby="inputGroup-sizing-default">
+            </div>
+        </div>
+
+        <button onclick="order()" type="button" class="btn btn-primary btn-lg">주문하기</button>
+    </div>
+
+
+</body>
+</html>
