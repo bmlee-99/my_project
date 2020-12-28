@@ -17,6 +17,7 @@ trs = soup.select('#body-content > div.newest-list > div > table > tbody > tr')
 for tr in trs:
 
     rank = tr.select_one('td.number').text[0:3].strip()
+    # text.split()[0] 으로도 할 수 있다.
     title = tr.select_one('td.info > a.title.ellipsis').text.strip()
     artist = tr.select_one('td.info > a.artist.ellipsis').text
 
@@ -26,6 +27,6 @@ for tr in trs:
         'title':title,
         'artist':artist
     }
-
+ # 딕션어리로 만듬
     db.genieranking.insert_one(doc)
-    print(rank, title, artist)
+
