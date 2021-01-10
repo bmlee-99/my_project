@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!--  초기 스케일을 맞춰줘야 media query가 올바르게 작동함  -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1"/>
+<!--스케일을 1대1로 화면에서 마추는것/ 스케일을 잘 마춰야 미디어커리가 잘 작동한다-->
+    <style>
+        html, body {
+            /*둘다포함한것*/
+            margin: 0;
+            height: 100%;
+        }
+
+        .nav {
+            height: 64px;
+            background-color: yellow;
+
+        }
+
+        .content {
+            height: calc(100% - 64px);
+            /*%란 부모를 가득 채워라, 부모기준으로 얼마를 채워라* 부모와 같은 사이즈면 100%로 한다/
+            /*calc 는 계산하겠다 라는 뜻*/
+            background-color: black;
+            display: flex;
+        }
+
+        /*flex-direction: row; 기본적으로 디폴트로 가로로 정열하게 되있음있어도 되구 없어도 됨*/
+
+
+        .side {
+            width: 200px;
+            height: 100%;
+            background-color: skyblue;
+
+
+        }
+
+        .main {
+            width: calc(100% - 200px);
+            height: 100%;
+            background-color: indianred;
+            display: flex;
+            flex-wrap: wrap;
+            overflow-y: scroll;
+            justify-content: space-evenly;
+            /*flex direction 방향을 정렬하는 것, row 방향으로 centre 를 하라는 뜻justify-content: centre*/
+            /*justify-content: space-evenly;균등하게 하는것*/
+
+        }
+
+        .card {
+            width: 200px;
+            height: 300px;
+            margin: 16px;
+            background-color: blueviolet;
+
+        }
+
+         /* width가 400px이하인 경우에 적용 @media-> media 커리의 약자
+         400px 이하인 경우에만 안쪽에 적어놓는 css 를 쓴다
+         위치가 밑에 있어야지 위에껄 덮어쓸수 있다*/
+        @media (max-width: 400px) {
+            .side {
+                display: none;/* 화면에서 숨기기 */
+            }
+            .main {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="nav">기사의 모든 것</div>
+<div class="content">
+    <div class="side"></div>
+    <!--    한주에 하나씩 밖에 못함 div -> flex 이용 부모에게 얘기를 함-->
+    <div class="main">
+        <div class="card"></div>
+
+    </div>
+</div>
+</body>
+</html>
