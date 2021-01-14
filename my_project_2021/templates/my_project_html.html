@@ -42,7 +42,7 @@
         }
 
         .img {
-            background-image: url('https://celalibrary.ca/sites/default/files/styles/scale_640_x_430/public/2019-01/pexels-photo-920115.jpeg?itok=E3Muz6eA');
+            background-image: url('../static/news.jpeg');
             background-size: cover;
             background-position: center;
             width: 500px;
@@ -69,6 +69,8 @@
             padding: 10px;
             border: 1px solid;
         }
+
+
     </style>
 
     <script>
@@ -77,51 +79,42 @@
             showPost();
         });
 
-        //
-        function showdata() {
-            //     if (name === '') {
-            //         alert('이름을 입력해주세요')
-            //         return
-            //     }
 
+        function showdata() {
+            let keyword_box = $('#keyword_box').val()
+            if (keyword_box === '') {
+                alert('키워드를 입력해주세요')
+                return
+            }
             $.ajax({
                 type: "GET",
-                url: "https://openapi.naver.com/v1/search/news.json",
-                data: {},
+                url: "/search",
+                data: {'keyword_give':keyword_box},
                 success: function (response) {
-                    let newsdata = response[1];
-                    $('#newsdata').text(newsdata);
-                    for (let i = 0; i < newsdata.length; i++) {
-                        // console.log(rows[i])
-                        let row = newsdata[i]
-                        let lastBuiltDate_receive = row['lastBuildDate']
-                        let originallink_receive = row['originallink']
-
-                        let temp = `<tr>
-                                        <td>${originallink_receive}</td>
-                                        <td>${lastBuiltDate_receive}</td>
-                                        <td>기사제목</td>
-                                        <td>기사게제일</td>
-                                        <td>기사링크</td>
-                                        <td>기자명</td>
+                    if (response['result'] === 'success') {
+                        let newsdatas = response['data']['item']
+                        for (let i = 0; i < newsdatas.length; i++) {
+                            let row = newsdatas[i]
+                            let pubDate = row['pubDate']
+                            let title = row['title']
+                            let link = row['link']
+                            let description = row['description']
+                            let temp = `<tr>
+                                        <td>${title}</td>
+                                        <td>${pubDate}</td>
+                                        <td>${link}</td>
+                                        <td>${description}</td>
                                         <td>기자이메일</td>
 
                                  </tr>`
-                        $('#news_info').append(temp)
+                            $('#news_info').append(temp)
+                        }
+
+
                     }
 
 
-                    // let temp = `<tr>
-                    //                 <td>${stationName}</td>
-                    //                 <td>${rackTotCnt}</td>
-                    //                 <td>${parkingBikeTotCnt}</td>
-                    //                 <!--문자열이라고 인식함-->
-                    //             </tr>`
-
-
                 }
-
-
             })
         }
 
@@ -140,7 +133,7 @@
         <h2>실시간 네이버 뉴스정보</h2>
         <p>네이버뉴스의 기사정보를 손쉽게 얻으세요</p>
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="예시: 코로나백신" aria-label="키워드"
+            <input id=keyword_box type="text" class="form-control" placeholder="예시: 코로나백신" aria-label="키워드"
                    aria-describedby="basic-addon2">
             <div class="input-group-append">
                 <button onclick="showdata()" class="btn btn-outline-secondary" type="button">검색</button>
@@ -153,7 +146,7 @@
                 <td>기사제목</td>
                 <td>기사게제일</td>
                 <td>기사링크</td>
-                <td>기자명</td>
+                <td>기사요약</td>
                 <td>기자이메일</td>
             </tr>
             </thead>
