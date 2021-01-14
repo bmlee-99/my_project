@@ -1,0 +1,157 @@
+<!Doctype html>
+<html lang="ko">
+<head>
+    <title>기사의 모든것</title>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+    <style type="text/css">
+        * {
+            font-family: 'Stylish', sans-serif;
+        }
+
+
+        div.question-box {
+            margin: 10px 0 20px;
+        }
+
+        .wrap {
+            width: 500px;
+            margin: auto;
+
+        }
+
+        .img {
+            background-image: url('https://celalibrary.ca/sites/default/files/styles/scale_640_x_430/public/2019-01/pexels-photo-920115.jpeg?itok=E3Muz6eA');
+            background-size: cover;
+            background-position: center;
+            width: 500px;
+            height: 300px;
+        }
+
+        div.question-box > div {
+            margin-top: 30px;
+        }
+
+        .title {
+
+            margin-top: 40px;
+
+        }
+
+        table {
+            border: 1px solid;
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            padding: 10px;
+            border: 1px solid;
+        }
+    </style>
+
+    <script>
+
+        $(document).ready(function () {
+            showPost();
+        });
+
+        function showdata() {
+            $.ajax({
+                type: "GET",
+                url: "https://openapi.naver.com/v1/search/news.json",
+                data: {},
+                success: function (response) {
+                    let newsdata = response[0];
+                    $('#newsdata').text(newsdata);
+                    for (let i = 0; i < newsdata.length; i++) {
+                        // console.log(rows[i])
+                        let row = newsdata[i]
+                        let lastBuiltDate_receive = row['lastBuildDate']
+                        let originallink_receive = row['originallink']
+
+                        let temp = `<tr>
+                                        <td>${originallink_receive}</td>
+                                        <td>${lastBuiltDate_receive}</td>
+
+
+                                 </tr>`
+                    }
+
+
+                    // let temp = `<tr>
+                    //                 <td>${stationName}</td>
+                    //                 <td>${rackTotCnt}</td>
+                    //                 <td>${parkingBikeTotCnt}</td>
+                    //                 <!--문자열이라고 인식함-->
+                    //             </tr>`
+
+                    $('#news_info').append(temp)
+                }
+
+
+            })
+        }
+
+    </script>
+
+</head>
+<body>
+<div class="wrap">
+    <div class="img"></div>
+    <div class="title">
+        <h1>기사의 모든것</h1></div>
+
+    <hr/>
+
+    <div class="question-box">
+        <h2>실시간 네이버 뉴스정보</h2>
+        <p>네이버뉴스의 기사정보를 손쉽게 얻으세요</p>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="예시: 코로나백신" aria-label="키워드"
+                   aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button onclick="showdata()" class="btn btn-outline-secondary" type="button">검색</button>
+            </div>
+        </div>
+        <p>*찾고싶은 뉴스키워드를 검색해보세요.</p>
+        <table>
+            <thead>
+            <tr>
+                <td>기사제목</td>
+                <td>기사게제일</td>
+                <td>기사링크</td>
+                <td>기자명</td>
+                <td>기자이메일</td>
+            </tr>
+            </thead>
+            <tbody id="news_info">
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+</body>
+</html>
