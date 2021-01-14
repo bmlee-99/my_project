@@ -77,13 +77,19 @@
             showPost();
         });
 
+        //
         function showdata() {
+            //     if (name === '') {
+            //         alert('이름을 입력해주세요')
+            //         return
+            //     }
+
             $.ajax({
                 type: "GET",
                 url: "https://openapi.naver.com/v1/search/news.json",
                 data: {},
                 success: function (response) {
-                    let newsdata = response[0];
+                    let newsdata = response[1];
                     $('#newsdata').text(newsdata);
                     for (let i = 0; i < newsdata.length; i++) {
                         // console.log(rows[i])
@@ -94,9 +100,14 @@
                         let temp = `<tr>
                                         <td>${originallink_receive}</td>
                                         <td>${lastBuiltDate_receive}</td>
-
+                                        <td>기사제목</td>
+                                        <td>기사게제일</td>
+                                        <td>기사링크</td>
+                                        <td>기자명</td>
+                                        <td>기자이메일</td>
 
                                  </tr>`
+                        $('#news_info').append(temp)
                     }
 
 
@@ -107,7 +118,7 @@
                     //                 <!--문자열이라고 인식함-->
                     //             </tr>`
 
-                    $('#news_info').append(temp)
+
                 }
 
 

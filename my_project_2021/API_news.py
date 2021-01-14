@@ -11,7 +11,7 @@ db = client.dbsparta
 ## HTML 화면 보여주기
 @app.route('/')
 def my_project():
-    return render_template('index.html')
+    return render_template('my_project_html')
 
 headers = {
     'X-Naver-Client-Id': 'GB58KoYEkcQOWJawE0MA',
