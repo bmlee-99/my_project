@@ -79,17 +79,19 @@
             showPost();
         });
 
-
         function showdata() {
             let keyword_box = $('#keyword_box').val()
             if (keyword_box === '') {
                 alert('키워드를 입력해주세요')
                 return
             }
+            let keyword = $('#keyword_box').val()
+            // console.log(keyword)
+
             $.ajax({
                 type: "GET",
                 url: "/search",
-                data: {'keyword_give':keyword_box},
+                data: {'keyword_give': keyword},
                 success: function (response) {
                     if (response['result'] === 'success') {
                         let newsdatas = response['data']['item']
@@ -104,8 +106,6 @@
                                         <td>${pubDate}</td>
                                         <td>${link}</td>
                                         <td>${description}</td>
-                                        <td>기자이메일</td>
-
                                  </tr>`
                             $('#news_info').append(temp)
                         }
@@ -133,8 +133,8 @@
         <h2>실시간 네이버 뉴스정보</h2>
         <p>네이버뉴스의 기사정보를 손쉽게 얻으세요</p>
         <div class="input-group mb-3">
-            <input id=keyword_box type="text" class="form-control" placeholder="예시: 코로나백신" aria-label="키워드"
-                   aria-describedby="basic-addon2">
+            <input type="text" class="form-control" placeholder="예시: 코로나백신" aria-label="키워드"
+                   aria-describedby="basic-addon2" id=keyword_box>
             <div class="input-group-append">
                 <button onclick="showdata()" class="btn btn-outline-secondary" type="button">검색</button>
             </div>
@@ -147,7 +147,7 @@
                 <td>기사게제일</td>
                 <td>기사링크</td>
                 <td>기사요약</td>
-                <td>기자이메일</td>
+
             </tr>
             </thead>
             <tbody id="news_info">
