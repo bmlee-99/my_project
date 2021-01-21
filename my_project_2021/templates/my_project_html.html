@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:title" content="기사의 모든것"/>
+    <meta property="og:image" content="{{ url_for('static', filename='news.png')}}"/>
+    <meta property="og:description" content="네이버 기사의 정보를 추출해주는 페이지 입니다"/>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -12,9 +15,6 @@
 
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
@@ -24,7 +24,7 @@
 
     <!-- 구글폰트 -->
     <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Stylish&display=swap" rel="stylesheet">
     <style type="text/css">
         * {
             font-family: 'Stylish', sans-serif;
@@ -75,11 +75,11 @@
 
     <script>
 
-        $(document).ready(function () {
-            showPost();
-        });
+        // $(document).ready(function () {
+        //     showPost();
+        // });
 
-        function showdata() {
+        function showData() {
             let keyword_box = $('#keyword_box').val()
             if (keyword_box === '') {
                 alert('키워드를 입력해주세요')
@@ -87,24 +87,26 @@
             }
             let keyword = $('#keyword_box').val()
             // console.log(keyword)
-
+            $('#news_info').empty()
             $.ajax({
                 type: "GET",
                 url: "/search",
                 data: {'keyword_give': keyword},
                 success: function (response) {
                     if (response['result'] === 'success') {
-                        let newsdatas = response['data']['item']
+                        let newsdatas = response['data']['items']
                         for (let i = 0; i < newsdatas.length; i++) {
                             let row = newsdatas[i]
+                             let image = row['image']
                             let pubDate = row['pubDate']
                             let title = row['title']
                             let link = row['link']
                             let description = row['description']
                             let temp = `<tr>
+                                        <td>${image}</td>
                                         <td>${title}</td>
                                         <td>${pubDate}</td>
-                                        <td>${link}</td>
+                                        <td><a href="${link}">link</a></td>
                                         <td>${description}</td>
                                  </tr>`
                             $('#news_info').append(temp)
@@ -136,13 +138,14 @@
             <input type="text" class="form-control" placeholder="예시: 코로나백신" aria-label="키워드"
                    aria-describedby="basic-addon2" id=keyword_box>
             <div class="input-group-append">
-                <button onclick="showdata()" class="btn btn-outline-secondary" type="button">검색</button>
+                <button onclick="showData()" class="btn btn-outline-secondary" type="button">검색</button>
             </div>
         </div>
         <p>*찾고싶은 뉴스키워드를 검색해보세요.</p>
         <table>
             <thead>
             <tr>
+                <td>기사사진</td>
                 <td>기사제목</td>
                 <td>기사게제일</td>
                 <td>기사링크</td>
